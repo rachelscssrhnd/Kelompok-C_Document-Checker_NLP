@@ -1,49 +1,39 @@
-Identitas Kelompok 3:
+# Implementasi Multi-Model Text Similarity untuk Sistem Web Document Checker Berbasis NLP
 
-Octaviani Putri Al Fajri	(164221042)
+## Identitas Kelompok 3
+| Nama | NIM |
+|------|-----|
+| Octaviani Putri Al Fajri | 164221042 |
+| Rachel Sunarko | 164231025 |
+| Samuel Donovan | 164231026 |
+| Arif Putra Feriza | 164231093 |
+| Bunga Amanda Aurora | 164231098 |
 
-Rachel Sunarko			(164231025)
+---
 
-Samuel Donovan			(164231026)
+## Judul Project
+Implementasi Multi-Model Text Similarity untuk Sistem Web Document Checker Berbasis NLP.
 
-Arif Putra Feriza		(164231093)
+## Library yang Digunakan
+nltk, os, re, PyMuPDF, python-docx, pytesseract, pdf2image, scikit-learn, sentence-transformer, rapidfuzz, jellyfish, numpy, matplotlib, seaborn, python-doctr, mplcursor.
 
-Bunga Amanda Aurora		(164231098)
+## Tata Cara Penggunaan Code
+Clone repository dengan perintah berikut:
+git clone https://github.com/rachelscssrhnd/Kelompok-C_Document-Checker_NLP.git
+cd Kelompok-C_Document-Checker_NLP
 
+Persiapan Python (Windows PowerShell) dilakukan dengan membuat virtual environment, mengaktifkannya, lalu menginstal dependency backend:
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r python\requirements.txt
 
+Menjalankan backend (FastAPI) dilakukan dengan masuk ke folder python dan menjalankan server:
+cd python
+python api.py
 
+Persiapan dan menjalankan frontend (Vite/React) dilakukan dengan kembali ke root project, menginstal package frontend, lalu menjalankan development server:
+cd ..
+npm install
+npm run dev
 
-
-Judul Project : Implementasi Multi-Model Text Similarity untuk Sistem Web Document Checker Berbasis NLP
-
-
-
-
-
-Library yang Digunakan
-
-1. nltk
-2. os
-3. re
-4. PyMuPDF
-5. python-docx
-6. pytesseract
-7. pdf2image
-8. scikit-learn
-9. sentence-transformer
-10. rapidfuzz
-11. jellyfish
-12. numpy
-13. matplotlib
-14. seaborn
-15. python-doctr
-16. mplcursor
-
-
-
-
-
-
-
-Tata cara Penggunaan Code:
-
+Aplikasi dapat diakses melalui URL yang muncul di terminal, misalnya http://localhost:8081.
