@@ -1,6 +1,3 @@
-@import "@fontsource/source-sans-3/400.css";
-@import "@fontsource/source-sans-3/500.css";
-@import "@fontsource/source-sans-3/600.css";
 @import "@fontsource/source-sans-3/700.css";
 
 @tailwind base;
@@ -132,12 +129,20 @@
     @apply border-border;
   }
 
+  html {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    @apply font-sans font-bold;
+  }
+
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    @apply bg-background text-foreground font-sans font-bold antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-bold tracking-tight;
   }
 }
 

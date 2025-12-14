@@ -1,0 +1,20 @@
+fastapi
+uvicorn
+python-multipart
+python-docx
+PyMuPDF
+pytesseract
+pdf2image
+Pillow
+nltk
+sentence-transformers
+rapidfuzz
+jellyfish
+scikit-learn
+pandas
+numpy
+python-doctr
+torch==2.0.1
+torchvision==0.15.2
+torchaudio==2.0.2
+--index-url https://download.pytorch.org/whl/cpu
