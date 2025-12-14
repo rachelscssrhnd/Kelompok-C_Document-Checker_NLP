@@ -1,0 +1,4 @@
+project_id = "tkplbttagvkczzqljqqx"
+
+[functions.analyze-similarity]
+verify_jwt = false

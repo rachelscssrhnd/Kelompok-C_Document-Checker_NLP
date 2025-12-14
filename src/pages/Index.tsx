@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import FileUploadZone from "@/components/FileUploadZone";
 import SimilarityResults from "@/components/SimilarityResults";
 import { UploadedDocument, SimilarityResult } from "@/types/document";
-import { computeSimilarity } from "@/utils/mockSimilarity";
+import { computeSimilarity } from "@/utils/similarityService";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
