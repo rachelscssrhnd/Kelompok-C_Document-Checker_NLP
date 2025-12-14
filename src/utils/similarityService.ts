@@ -2,6 +2,9 @@ import { SimilarityResult, UploadedDocument } from "@/types/document";
 import { extractTextFromFile } from "./textExtraction";
 import { supabase } from "@/integrations/supabase/client";
 
+// TODO: This service will call the Python backend for similarity analysis
+// The actual algorithm is implemented in python/document_checker.py
+
 interface AnalysisResponse {
   names: string[];
   tfidfCosine: number[][];
@@ -27,7 +30,8 @@ export const computeSimilarity = async (
   
   console.log("Sending to analysis function...");
   
-  // Call the edge function
+  // TODO: Replace with call to Python backend
+  // The edge function will forward to your Python service
   const { data, error } = await supabase.functions.invoke<AnalysisResponse>('analyze-similarity', {
     body: { documents: extractedTexts },
   });
