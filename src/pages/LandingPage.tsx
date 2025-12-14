@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText, Layers, Shield, Upload, BarChart3, Brain } from "lucide-react";
+import { ArrowRight, FileText, Layers, Shield, Upload, BarChart3, Brain, Cpu, Globe } from "lucide-react";
 
 const LandingPage = () => {
   return (
@@ -89,7 +89,7 @@ const LandingPage = () => {
             </h3>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <MetricCard
               icon={<BarChart3 className="w-6 h-6" />}
               title="Cosine TF-IDF"
@@ -116,9 +116,21 @@ const LandingPage = () => {
             />
             <MetricCard
               icon={<Brain className="w-6 h-6" />}
-              title="Embedding Kalimat"
+              title="MiniLM"
               category="Semantik"
-              description="Menggunakan MiniLM, MPNet, dan Multi MPNet untuk memahami makna."
+              description="Model embedding ringan untuk memahami makna kalimat."
+            />
+            <MetricCard
+              icon={<Cpu className="w-6 h-6" />}
+              title="MPNet"
+              category="Semantik"
+              description="Model embedding akurat untuk representasi semantik."
+            />
+            <MetricCard
+              icon={<Globe className="w-6 h-6" />}
+              title="Multilingual MPNet"
+              category="Semantik"
+              description="Model embedding multibahasa untuk dokumen berbagai bahasa."
             />
           </div>
         </div>

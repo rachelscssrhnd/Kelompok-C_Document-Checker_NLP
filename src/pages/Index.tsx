@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Loader2, ArrowRight, Info } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Loader2, ArrowRight, ArrowLeft, Info, BarChart3, FileText, Brain, Cpu, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import Header from "@/components/Header";
@@ -18,8 +19,8 @@ const Index = () => {
   const handleCheckSimilarity = async () => {
     if (documents.length < 2) {
       toast({
-        title: "Not enough documents",
-        description: "Please upload at least 2 documents to compare.",
+        title: "Dokumen tidak cukup",
+        description: "Unggah minimal 2 dokumen untuk dibandingkan.",
         variant: "destructive",
       });
       return;
@@ -32,13 +33,13 @@ const Index = () => {
       const similarityResults = await computeSimilarity(documents);
       setResults(similarityResults);
       toast({
-        title: "Analysis complete",
-        description: `Compared ${documents.length} documents successfully.`,
+        title: "Analisis selesai",
+        description: `Berhasil membandingkan ${documents.length} dokumen.`,
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to compute similarity. Please try again.",
+        description: "Gagal menghitung kemiripan. Silakan coba lagi.",
         variant: "destructive",
       });
     } finally {
@@ -51,10 +52,20 @@ const Index = () => {
       <Header />
 
       <main className="container mx-auto px-4 py-8 max-w-5xl">
+        {/* Back to Landing */}
+        <div className="mb-6">
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Kembali ke Beranda
+            </Button>
+          </Link>
+        </div>
+
         {/* Upload Section */}
         <section className="mb-8">
           <div className="flex items-center gap-2 mb-4">
-            <h2 className="text-lg font-semibold text-foreground">Upload Documents</h2>
+            <h2 className="text-lg font-semibold text-foreground">Unggah Dokumen</h2>
             <Tooltip>
               <TooltipTrigger asChild>
                 <button className="text-muted-foreground hover:text-foreground transition-colors">
@@ -62,7 +73,7 @@ const Index = () => {
                 </button>
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
-                <p>Upload multiple documents to compare their similarity. Supports PDF, DOCX, TXT, and images (OCR).</p>
+                <p>Unggah beberapa dokumen untuk membandingkan kemiripannya. Mendukung PDF, DOCX, TXT, dan gambar (OCR).</p>
               </TooltipContent>
             </Tooltip>
           </div>
@@ -80,11 +91,11 @@ const Index = () => {
                 {isProcessing ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Analyzing...
+                    Menganalisis...
                   </>
                 ) : (
                   <>
-                    Check Similarity
+                    Cek Kemiripan
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
@@ -93,7 +104,7 @@ const Index = () => {
 
             {documents.length === 1 && (
               <p className="mt-4 text-sm text-muted-foreground text-center">
-                Upload at least one more document to compare
+                Unggah minimal satu dokumen lagi untuk membandingkan
               </p>
             )}
           </div>
@@ -103,7 +114,7 @@ const Index = () => {
         {results.length > 0 && (
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-4">
-              Similarity Results
+              Hasil Kemiripan
             </h2>
             <div className="bg-card rounded-xl border border-border p-6 shadow-card">
               <SimilarityResults results={results} />
@@ -115,26 +126,53 @@ const Index = () => {
         {results.length === 0 && !isProcessing && (
           <section className="mt-8">
             <h2 className="text-lg font-semibold text-foreground mb-4">
-              Similarity Methods
+              Metode Kemiripan
             </h2>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Statistical Methods */}
               <MethodCard
-                title="Statistical Methods"
-                icon="📊"
-                methods={["TF-IDF Cosine Similarity", "Jaccard Similarity"]}
-                description="Analyze word frequency and set overlap patterns"
+                title="Cosine TF-IDF"
+                icon={<BarChart3 className="w-5 h-5" />}
+                category="Statistik"
+                description="Mengukur kemiripan berdasarkan frekuensi kata dengan pembobotan TF-IDF"
               />
               <MethodCard
-                title="Textual Methods"
-                icon="📝"
-                methods={["Levenshtein Similarity", "Jaro-Winkler Similarity"]}
-                description="Compare character-level text patterns"
+                title="Jaccard"
+                icon={<BarChart3 className="w-5 h-5" />}
+                category="Statistik"
+                description="Menghitung rasio irisan dan gabungan himpunan kata unik"
+              />
+              {/* Textual Methods */}
+              <MethodCard
+                title="Levenshtein"
+                icon={<FileText className="w-5 h-5" />}
+                category="Tekstual"
+                description="Mengukur jarak edit minimum antar teks"
               />
               <MethodCard
-                title="Semantic Methods"
-                icon="🧠"
-                methods={["MiniLM", "MPNet", "Multilingual MPNet"]}
-                description="Understand meaning using neural embeddings"
+                title="Jaro-Winkler"
+                icon={<FileText className="w-5 h-5" />}
+                category="Tekstual"
+                description="Mengukur kemiripan karakter dengan penekanan awalan"
+              />
+              {/* Semantic Methods - Separated */}
+              <MethodCard
+                title="MiniLM"
+                icon={<Brain className="w-5 h-5" />}
+                category="Semantik"
+                description="Model embedding ringan untuk memahami makna kalimat"
+              />
+              <MethodCard
+                title="MPNet"
+                icon={<Cpu className="w-5 h-5" />}
+                category="Semantik"
+                description="Model embedding akurat untuk representasi semantik"
+              />
+              <MethodCard
+                title="Multilingual MPNet"
+                icon={<Globe className="w-5 h-5" />}
+                category="Semantik"
+                description="Model embedding multibahasa untuk dokumen berbagai bahasa"
               />
             </div>
           </section>
@@ -144,7 +182,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="border-t border-border mt-16">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>Document Similarity Checker — Academic Research Tool</p>
+          <p>Document Similarity Checker — Teknologi Sains Data FTMM UNAIR</p>
         </div>
       </footer>
     </div>
@@ -154,26 +192,21 @@ const Index = () => {
 const MethodCard = ({
   title,
   icon,
-  methods,
+  category,
   description,
 }: {
   title: string;
-  icon: string;
-  methods: string[];
+  icon: React.ReactNode;
+  category: string;
   description: string;
 }) => (
   <div className="p-5 rounded-lg border border-border bg-gradient-to-b from-card to-muted/20 hover:shadow-md transition-shadow">
-    <div className="text-2xl mb-2">{icon}</div>
-    <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-    <p className="text-xs text-muted-foreground mb-3">{description}</p>
-    <ul className="space-y-1">
-      {methods.map((method) => (
-        <li key={method} className="text-sm text-foreground flex items-center gap-2">
-          <span className="w-1 h-1 rounded-full bg-secondary" />
-          {method}
-        </li>
-      ))}
-    </ul>
+    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-primary mb-3">
+      {icon}
+    </div>
+    <span className="text-xs font-medium text-secondary uppercase tracking-wide">{category}</span>
+    <h3 className="font-semibold text-foreground mt-1 mb-1">{title}</h3>
+    <p className="text-xs text-muted-foreground">{description}</p>
   </div>
 );
 
