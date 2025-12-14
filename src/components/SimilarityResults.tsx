@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { SimilarityResult, SIMILARITY_METHODS, MethodInfo } from "@/types/document";
+import { SimilarityResult, SIMILARITY_METHODS, MethodInfo, SimilarityMethod } from "@/types/document";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -38,6 +38,17 @@ const getHeatmapColor = (score: number): string => {
   return "bg-muted/50 text-muted-foreground";
 };
 
+const formatCategoryLabel = (category: MethodInfo["category"]) => {
+  switch (category) {
+    case "statistical":
+      return "Statistical";
+    case "textual":
+      return "Textual";
+    case "semantic":
+      return "Semantic";
+  }
+};
+
 const SimilarityResults = ({ results }: SimilarityResultsProps) => {
   const [activeCategory, setActiveCategory] = useState<'all' | 'statistical' | 'textual' | 'semantic'>('all');
 
@@ -62,6 +73,42 @@ const SimilarityResults = ({ results }: SimilarityResultsProps) => {
     });
     
     return highest;
+  }, [results]);
+
+  const highestByCategory = useMemo(() => {
+    const categories: MethodInfo["category"][] = ["semantic", "statistical", "textual"];
+
+    return categories.map((category) => {
+      const methods = SIMILARITY_METHODS.filter((m) => m.category === category);
+
+      let best: {
+        category: MethodInfo["category"];
+        methodLabel: string;
+        pair: string;
+        score: number;
+      } = {
+        category,
+        methodLabel: "-",
+        pair: "-",
+        score: 0,
+      };
+
+      for (const method of methods) {
+        for (const r of results) {
+          const score = r.scores[method.key] ?? 0;
+          if (score > best.score) {
+            best = {
+              category,
+              methodLabel: method.label,
+              pair: `${r.doc1}–${r.doc2}`,
+              score,
+            };
+          }
+        }
+      }
+
+      return best;
+    });
   }, [results]);
 
   if (results.length === 0) return null;
@@ -163,38 +210,101 @@ const SimilarityResults = ({ results }: SimilarityResultsProps) => {
               </tbody>
             </table>
           </div>
+
+          {/* Highest similarity per category */}
+          <div className="mt-6 overflow-x-auto rounded-lg border border-border">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/50">
+                <tr>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground whitespace-nowrap">
+                    Category
+                  </th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground whitespace-nowrap">
+                    Method
+                  </th>
+                  <th className="px-4 py-3 text-left font-medium text-muted-foreground whitespace-nowrap">
+                    Pair
+                  </th>
+                  <th className="px-4 py-3 text-right font-medium text-muted-foreground whitespace-nowrap">
+                    Highest Similarity Score
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {highestByCategory.map((row, index) => (
+                  <tr
+                    key={`best-${row.category}`}
+                    className={cn(
+                      "border-t border-border transition-colors",
+                      index % 2 === 0 ? "bg-card" : "bg-muted/20"
+                    )}
+                  >
+                    <td className="px-4 py-3 font-medium text-foreground whitespace-nowrap">
+                      {formatCategoryLabel(row.category)}
+                    </td>
+                    <td className="px-4 py-3 text-foreground whitespace-nowrap">
+                      {row.methodLabel}
+                    </td>
+                    <td className="px-4 py-3 text-foreground whitespace-nowrap">
+                      {row.pair}
+                    </td>
+                    <td className="px-4 py-3 text-right font-medium text-foreground whitespace-nowrap">
+                      <span
+                        className={cn(
+                          "inline-flex items-center justify-center min-w-[60px] px-2 py-1 rounded border text-xs font-medium transition-all",
+                          getScoreColor(row.score)
+                        )}
+                      >
+                        {(row.score * 100).toFixed(1)}%
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Heatmaps (per method) */}
+          <div className="mt-6 space-y-8">
+            {filteredMethods.map((method) => (
+              <div key={`heatmap-${method.key}`} className="space-y-3">
+                <h3 className="font-medium text-foreground">Similarity Heatmap ({method.label})</h3>
+                <div className="overflow-x-auto">
+                  <div className="inline-block min-w-full">
+                    <HeatmapMatrix results={results} methodKey={method.key} />
+                  </div>
+                </div>
+                {/* Legend */}
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <span>Low</span>
+                  <div className="flex gap-0.5">
+                    <div className="w-4 h-3 rounded-sm bg-muted/50" />
+                    <div className="w-4 h-3 rounded-sm bg-muted" />
+                    <div className="w-4 h-3 rounded-sm bg-accent/70" />
+                    <div className="w-4 h-3 rounded-sm bg-accent" />
+                    <div className="w-4 h-3 rounded-sm bg-secondary/70" />
+                    <div className="w-4 h-3 rounded-sm bg-secondary" />
+                    <div className="w-4 h-3 rounded-sm bg-primary/80" />
+                    <div className="w-4 h-3 rounded-sm bg-primary" />
+                  </div>
+                  <span>High</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </TabsContent>
       </Tabs>
-
-      {/* Heatmap Matrix */}
-      <div className="space-y-3">
-        <h3 className="font-medium text-foreground">Similarity Heatmap (TF-IDF Cosine)</h3>
-        <div className="overflow-x-auto">
-          <div className="inline-block min-w-full">
-            <HeatmapMatrix results={results} />
-          </div>
-        </div>
-        {/* Legend */}
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>Low</span>
-          <div className="flex gap-0.5">
-            <div className="w-4 h-3 rounded-sm bg-muted/50" />
-            <div className="w-4 h-3 rounded-sm bg-muted" />
-            <div className="w-4 h-3 rounded-sm bg-accent/70" />
-            <div className="w-4 h-3 rounded-sm bg-accent" />
-            <div className="w-4 h-3 rounded-sm bg-secondary/70" />
-            <div className="w-4 h-3 rounded-sm bg-secondary" />
-            <div className="w-4 h-3 rounded-sm bg-primary/80" />
-            <div className="w-4 h-3 rounded-sm bg-primary" />
-          </div>
-          <span>High</span>
-        </div>
-      </div>
     </div>
   );
 };
 
-const HeatmapMatrix = ({ results }: { results: SimilarityResult[] }) => {
+const HeatmapMatrix = ({
+  results,
+  methodKey,
+}: {
+  results: SimilarityResult[];
+  methodKey: SimilarityMethod;
+}) => {
   const documents = useMemo(() => {
     const docs = new Set<string>();
     results.forEach((r) => {
@@ -209,7 +319,7 @@ const HeatmapMatrix = ({ results }: { results: SimilarityResult[] }) => {
     const result = results.find(
       (r) => (r.doc1 === doc1 && r.doc2 === doc2) || (r.doc1 === doc2 && r.doc2 === doc1)
     );
-    return result?.scores.tfidfCosine ?? 0;
+    return result?.scores[methodKey] ?? 0;
   };
 
   return (
@@ -224,8 +334,11 @@ const HeatmapMatrix = ({ results }: { results: SimilarityResult[] }) => {
       ))}
       {/* Rows */}
       {documents.map((rowDoc) => (
-        <>
-          <div key={`row-${rowDoc}`} className="px-2 py-1 text-xs font-medium text-muted-foreground truncate max-w-[100px]">
+        <div
+          key={`rowwrap-${rowDoc}`}
+          className="contents"
+        >
+          <div className="px-2 py-1 text-xs font-medium text-muted-foreground truncate max-w-[100px]">
             {rowDoc}
           </div>
           {documents.map((colDoc) => {
@@ -243,7 +356,7 @@ const HeatmapMatrix = ({ results }: { results: SimilarityResult[] }) => {
               </div>
             );
           })}
-        </>
+        </div>
       ))}
     </div>
   );
