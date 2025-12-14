@@ -17,33 +17,43 @@ Implementasi Multi-Model Text Similarity untuk Sistem Web Document Checker Berba
 ## Library yang Digunakan
 nltk, os, re, PyMuPDF, python-docx, pytesseract, pdf2image, scikit-learn, sentence-transformer, rapidfuzz, jellyfish, numpy, matplotlib, seaborn, python-doctr, mplcursor.
 
-## Tata Cara Penggunaan Code
-Clone repository dengan perintah berikut:
+## Cara Menjalankan Aplikasi
 
-```git clone https://github.com/rachelscssrhnd/Kelompok-C_Document-Checker_NLP.git```
+### 1. Clone Repository
+```bash
+git clone https://github.com/rachelscssrhnd/Kelompok-C_Document-Checker_NLP.git
+cd Kelompok-C_Document-Checker_NLP
+```
 
-```cd Kelompok-C_Document-Checker_NLP```
+### 2. Setup Backend (Python)
+```bash
+# Buat virtual environment
+python -m venv .venv
 
-Persiapan Python (Windows PowerShell) dilakukan dengan membuat virtual environment, mengaktifkannya, lalu menginstal dependency backend:
+# Aktifkan virtual environment (Windows PowerShell)
+.venv\Scripts\Activate.ps1
 
-```python -m venv .venv```
+# Install dependencies backend
+pip install -r python\requirements.txt
 
-```.venv\Scripts\Activate.ps1```
+# Jalankan backend server
+cd python
+python api.py
+```
+Backend akan berjalan di `http://localhost:8000`
 
-```pip install -r python\requirements.txt```
+### 3. Setup Frontend (React/Vite)
+```bash
+# Kembali ke root project
+cd ..
 
-Menjalankan backend (FastAPI) dilakukan dengan masuk ke folder python dan menjalankan server:
+# Install dependencies frontend
+npm install
 
-```cd python```
+# Jalankan development server
+npm run dev
+```
+Frontend akan berjalan di `http://localhost:8081` (atau URL yang ditampilkan di terminal)
 
-```python api.py```
-
-Persiapan dan menjalankan frontend (Vite/React) dilakukan dengan kembali ke root project, menginstal package frontend, lalu menjalankan development server:
-
-```cd ..```
-
-```npm install```
-
-```npm run dev```
-
-Aplikasi dapat diakses melalui URL yang muncul di terminal, misalnya http://localhost:8081.
+### 4. Akses Aplikasi
+Buka browser dan akses `http://localhost:8081` untuk menggunakan aplikasi Document Checker.
