@@ -1,73 +1,49 @@
-# Welcome to your Lovable project
+Identitas Kelompok 3:
 
-## Project info
+Octaviani Putri Al Fajri	(164221042)
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Rachel Sunarko			(164231025)
 
-## How can I edit this code?
+Samuel Donovan			(164231026)
 
-There are several ways of editing your application.
+Arif Putra Feriza		(164231093)
 
-**Use Lovable**
+Bunga Amanda Aurora		(164231098)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
 
-Changes made via Lovable will be committed automatically to this repo.
 
-**Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Judul Project : Implementasi Multi-Model Text Similarity untuk Sistem Web Document Checker Berbasis NLP
 
-Follow these steps:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Library yang Digunakan
 
-**Edit a file directly in GitHub**
+1. nltk
+2. os
+3. re
+4. PyMuPDF
+5. python-docx
+6. pytesseract
+7. pdf2image
+8. scikit-learn
+9. sentence-transformer
+10. rapidfuzz
+11. jellyfish
+12. numpy
+13. matplotlib
+14. seaborn
+15. python-doctr
+16. mplcursor
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
 
-This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
+Tata cara Penggunaan Code:
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
