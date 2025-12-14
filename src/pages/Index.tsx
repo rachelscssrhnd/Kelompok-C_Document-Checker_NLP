@@ -49,6 +49,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Header */}
       <Header />
 
       <main className="container mx-auto px-4 py-8 max-w-5xl">
@@ -180,9 +181,18 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-16">
+      <footer className="border-t border-border bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>Document Similarity Checker — Teknologi Sains Data FTMM UNAIR</p>
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
+              <FileText className="w-3 h-3 text-primary-foreground" />
+            </div>
+            <span className="font-medium text-foreground">Document Similarity Checker</span>
+            <span className="text-muted-foreground">— Teknologi Sains Data FTMM UNAIR</span>
+          </div>
+          <p>
+            © 2025 Fakultas Teknologi Maju dan Multidisiplin · Universitas Airlangga
+          </p>
         </div>
       </footer>
     </div>

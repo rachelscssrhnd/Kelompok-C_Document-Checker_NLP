@@ -264,31 +264,46 @@ const SimilarityResults = ({ results }: SimilarityResultsProps) => {
             </table>
           </div>
 
-          {/* Heatmaps (per method) */}
+          {/* Heatmaps (per method) - 2 per row */}
           <div className="mt-6 space-y-8">
-            {filteredMethods.map((method) => (
-              <div key={`heatmap-${method.key}`} className="space-y-3">
-                <h3 className="font-medium text-foreground">Similarity Heatmap ({method.label})</h3>
-                <div className="overflow-x-auto">
-                  <div className="inline-block min-w-full">
-                    <HeatmapMatrix results={results} methodKey={method.key} />
+            {filteredMethods.reduce((rows, method, index) => {
+              const rowIndex = Math.floor(index / 2);
+              if (!rows[rowIndex]) {
+                rows[rowIndex] = [];
+              }
+              rows[rowIndex].push(method);
+              return rows;
+            }, [] as MethodInfo[][]).map((rowMethods, rowIndex) => (
+              <div key={`heatmap-row-${rowIndex}`} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {rowMethods.map((method) => (
+                  <div key={`heatmap-${method.key}`} className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#741b47] shadow-sm"></div>
+                      <h3 className="font-medium text-foreground">Similarity Heatmap ({method.label})</h3>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <div className="inline-block min-w-full">
+                        <HeatmapMatrix results={results} methodKey={method.key} />
+                      </div>
+                    </div>
+                    {/* Legend */}
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <span>Low</span>
+                      <div className="flex gap-0.5">
+                        <div className="w-4 h-3 rounded-sm bg-muted/50" />
+                        <div className="w-4 h-3 rounded-sm bg-muted" />
+                        <div className="w-4 h-3 rounded-sm bg-accent/70" />
+                        <div className="w-4 h-3 rounded-sm bg-accent" />
+                        <div className="w-4 h-3 rounded-sm bg-secondary/70" />
+                        <div className="w-4 h-3 rounded-sm bg-secondary" />
+                        <div className="w-4 h-3 rounded-sm bg-primary/80" />
+                        <div className="w-4 h-3 rounded-sm bg-primary" />
+                        <div className="w-4 h-3 rounded-sm bg-[#741b47]" />
+                      </div>
+                      <span>High</span>
+                    </div>
                   </div>
-                </div>
-                {/* Legend */}
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <span>Low</span>
-                  <div className="flex gap-0.5">
-                    <div className="w-4 h-3 rounded-sm bg-muted/50" />
-                    <div className="w-4 h-3 rounded-sm bg-muted" />
-                    <div className="w-4 h-3 rounded-sm bg-accent/70" />
-                    <div className="w-4 h-3 rounded-sm bg-accent" />
-                    <div className="w-4 h-3 rounded-sm bg-secondary/70" />
-                    <div className="w-4 h-3 rounded-sm bg-secondary" />
-                    <div className="w-4 h-3 rounded-sm bg-primary/80" />
-                    <div className="w-4 h-3 rounded-sm bg-primary" />
-                  </div>
-                  <span>High</span>
-                </div>
+                ))}
               </div>
             ))}
           </div>

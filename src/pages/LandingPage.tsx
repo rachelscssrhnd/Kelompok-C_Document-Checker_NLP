@@ -6,10 +6,10 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-border bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
               <FileText className="w-5 h-5 text-primary-foreground" />
             </div>
             <div>
@@ -20,7 +20,7 @@ const LandingPage = () => {
             </div>
           </div>
           <Link to="/checker">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="border-primary/20 hover:border-primary/40 hover:bg-primary/5">
               Masuk ke Checker
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
@@ -30,12 +30,15 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
         <div className="container mx-auto px-4 py-20 md:py-28 relative">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <p className="text-sm font-semibold text-secondary tracking-wide uppercase">
-              Program Studi Teknologi Sains Data · FTMM UNAIR
-            </p>
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#741b47]/10 border border-[#741b47]/20">
+              <span className="text-sm font-semibold text-[#741b47] tracking-wide uppercase">
+                Program Studi Teknologi Sains Data · FTMM UNAIR
+              </span>
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
               Pemeriksaan Kemiripan Dokumen
             </h2>
@@ -45,45 +48,56 @@ const LandingPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link to="/checker">
-                <Button size="lg" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-[#741b47] to-[#741b47]/90 hover:from-[#741b47]/90 hover:to-[#741b47] shadow-lg">
                   Masuk ke Document Checker
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Maksimal 10 dokumen · Pemrosesan lokal di browser
-            </p>
+            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Upload className="w-4 h-4" />
+                <span>Maksimal 10 dokumen</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Shield className="w-4 h-4" />
+                <span>Multi-Format dan Multi-Bahasa</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-semibold text-secondary tracking-wide uppercase mb-3">
-              01 · Tentang
-            </p>
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-3">
+              <span className="text-sm font-semibold text-secondary tracking-wide uppercase">
+                01 · Tentang
+              </span>
+            </div>
             <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Apa itu Document Checker?
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Document Checker membantu mahasiswa Teknologi Sains Data melakukan pemeriksaan kemiripan dokumen 
               secara mandiri sebelum dikumpulkan ke dosen. Sistem menggabungkan beberapa pendekatan: statistik, 
-              tekstual, dan semantik untuk menghasilkan satu skor kemiripan gabungan.
+              tekstual, dan semantik serta menyajikannya dalam tabel ringkas & visualisasi heatmap matrix.
             </p>
           </div>
         </div>
       </section>
 
       {/* Metrics Section */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-secondary tracking-wide uppercase mb-3">
-              02 · Fitur
-            </p>
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-3">
+              <span className="text-sm font-semibold text-accent tracking-wide uppercase">
+                02 · Fitur
+              </span>
+            </div>
             <h3 className="text-3xl md:text-4xl font-bold text-foreground">
               Metrik Penilaian Multi-Metode
             </h3>
@@ -137,12 +151,14 @@ const LandingPage = () => {
       </section>
 
       {/* Workflow Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-gradient-to-b from-muted/20 to-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-secondary tracking-wide uppercase mb-3">
-              03 · Alur
-            </p>
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#741b47]/10 border border-[#741b47]/20 mb-3">
+              <span className="text-sm font-semibold text-[#741b47] tracking-wide uppercase">
+                03 · Alur
+              </span>
+            </div>
             <h3 className="text-3xl md:text-4xl font-bold text-foreground">
               Alur penggunaan singkat
             </h3>
@@ -163,13 +179,13 @@ const LandingPage = () => {
               <WorkflowStep
                 number={3}
                 title="Lihat hasil"
-                description="Anda mendapatkan ringkasan skor gabungan dan rekomendasi tindak lanjut."
+                description="Anda mendapatkan ringkasan skor dan visualisasi similarity matrix."
               />
             </div>
 
             <div className="text-center mt-12">
               <Link to="/checker">
-                <Button size="lg">
+                <Button size="lg" className="bg-gradient-to-r from-[#741b47] to-[#741b47]/90 hover:from-[#741b47]/90 hover:to-[#741b47] shadow-lg">
                   Mulai Periksa Dokumen
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
@@ -180,10 +196,10 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card">
+      <footer className="border-t border-border bg-gradient-to-b from-background to-muted/20">
         <div className="container mx-auto px-4 py-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
               <FileText className="w-4 h-4 text-primary-foreground" />
             </div>
             <span className="font-semibold text-foreground">Document Checker</span>
@@ -209,8 +225,8 @@ const MetricCard = ({
   category: string;
   description: string;
 }) => (
-  <div className="bg-card rounded-xl border border-border p-5 shadow-card hover:shadow-md transition-shadow">
-    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-primary mb-3">
+  <div className="bg-gradient-to-b from-card to-muted/10 rounded-xl border border-border p-5 shadow-card hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center text-primary mb-3 shadow-md">
       {icon}
     </div>
     <span className="text-xs font-medium text-secondary uppercase tracking-wide">{category}</span>
@@ -228,8 +244,8 @@ const WorkflowStep = ({
   title: string;
   description: string;
 }) => (
-  <div className="flex gap-4 items-start">
-    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+  <div className="flex gap-4 items-start group">
+    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform">
       <span className="text-primary-foreground font-bold">{number}</span>
     </div>
     <div className="pt-1">
