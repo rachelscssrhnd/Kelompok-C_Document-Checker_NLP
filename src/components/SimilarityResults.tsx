@@ -278,7 +278,7 @@ const SimilarityResults = ({ results }: SimilarityResultsProps) => {
                 {rowMethods.map((method) => (
                   <div key={`heatmap-${method.key}`} className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full bg-[#741b47] shadow-sm"></div>
+                      <div className="w-3 h-3 rounded-full bg-primary shadow-sm"></div>
                       <h3 className="font-medium text-foreground">Similarity Heatmap ({method.label})</h3>
                     </div>
                     <div className="overflow-x-auto">
@@ -298,7 +298,6 @@ const SimilarityResults = ({ results }: SimilarityResultsProps) => {
                         <div className="w-4 h-3 rounded-sm bg-secondary" />
                         <div className="w-4 h-3 rounded-sm bg-primary/80" />
                         <div className="w-4 h-3 rounded-sm bg-primary" />
-                        <div className="w-4 h-3 rounded-sm bg-[#741b47]" />
                       </div>
                       <span>High</span>
                     </div>
